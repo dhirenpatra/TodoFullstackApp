@@ -17,9 +17,6 @@ function App() {
       Counter Application started from here ...
       <br/><br/><br/><br/>
       <Counter />
-      <Counter addBy={5}/>
-      <Counter addBy={10}/>
-      <Counter addBy={100}/>
     </div>
   );
 }
