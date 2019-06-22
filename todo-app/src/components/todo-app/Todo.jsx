@@ -6,21 +6,25 @@ import TodoList from "./TodoList";
 import ErrorRoute from "./ErrorRoute";
 import HeaderComponent from "./HeaderComponent";
 import FooterComponent from "./FooterComponent";
+import Logout from './Logout';
+import AuthenticatedRoute from "./AuthenticatedRoute";
+
 class Todo extends Component {
     render() {
         return(
-            <div>
-                <Router>
-                    <HeaderComponent />
-                    <Switch>
-                        <Route path="/" exact component={Login}/>
-                        <Route path="/welcome/:name" exact component={Welcome}/>
-                        <Route path="/login" exact component={Login}/>
-                        <Route path="/todos" exact component={TodoList}/>
-                        <Route component={ErrorRoute} />
-                    </Switch>
-                    <FooterComponent />
-                </Router>
+            <div className="todo">
+                    <Router>
+                    <HeaderComponent/>
+                            <Switch>
+                                <Route path="/" exact component={Login}/>
+                                <Route path="/login" component={Login}/>
+                                <AuthenticatedRoute path="/welcome/:name" exact component={Welcome}/>
+                                <AuthenticatedRoute path="/todos" component={TodoList}/>
+                                <AuthenticatedRoute path="/logout" component={Logout}/>
+                                <Route component={ErrorRoute} />
+                            </Switch>
+                            <FooterComponent />
+                    </Router>
             </div>
         );
     }

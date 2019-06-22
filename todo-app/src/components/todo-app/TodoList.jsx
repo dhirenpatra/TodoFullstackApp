@@ -17,10 +17,10 @@ class TodoList extends Component {
 
     render() {
         return(
-            <div>
-                <h1>Here is your list of todos...</h1>
-                <table>
-                    <thead>
+            <div className="container table-responsive">
+                <h1>Here is your list of Todos...</h1>
+                <table className="table table-secondary table-striped table-bordered table-hover">
+                    <thead className="thead-dark">
                         <tr>
                             <th>id</th>
                             <th>description</th>
@@ -32,7 +32,7 @@ class TodoList extends Component {
                         {
                             this.state.todos.map(
                                 (todo) => 
-                                    <tr>
+                                    <tr key={todo.id}>
                                         <td>{todo.id}</td>
                                         <td>{todo.description}</td>
                                         <td>{todo.finished.toString()}</td>

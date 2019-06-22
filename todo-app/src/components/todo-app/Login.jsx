@@ -1,4 +1,6 @@
 import React , {Component} from 'react';
+import AuthenticationService from "./authentication/AuthenticationService";
+import '../../bootstrap.css';
 
 class Login extends Component {
 
@@ -23,35 +25,34 @@ class Login extends Component {
     }
 
     handleSubmit(event) {
-        console.log("handleSubmit called");
-        console.log(this.state.username + '<<<<:--:--:>>>>' + this.state.password);
+        event.preventDefault();
         if(this.state.username === "dhiren" && this.state.password === "pooja") {
-            this.setState({
-                invalidCredential : false,
-                showSuccessMessage : true
-            });
-            console.log(this.state);
+            AuthenticationService.registerUser(this.state.username,this.state.password);
             this.props.history.push(`/welcome/${this.state.username}`);
+            window.location.reload();
         } else {
-            this.setState({
-                invalidCredential : true,
-                showSuccessMessage : false
-            });
+            this.setState({showSuccessMessage:false})
+            this.setState({invalidCredential:true})
         }
     }
 
     render() {
         return(
-            <div className="login">
-                {this.state.invalidCredential && <div>  Login Failed  </div>}
-                User Name : <input onChange={this.handleChangeEvent} type="text"
-                        name="username" placeholder="username goes here" 
-                        value={this.state.username} ></input>
-                Password : <input onChange={this.handleChangeEvent} type="password"
-                        name="password"  placeholder="password goes here" 
-                        value={this.state.password}></input>
-                <br />
-                <button onClick={this.handleSubmit}> Login </button>
+            <div className="container">
+                {this.state.invalidCredential && <div className="alert alert-warning">  Login Failed  </div>}
+                <form>
+                    <div className="form-group">
+                        <label >Username:</label>
+                        <input type="text" className="form-control" onChange={this.handleChangeEvent} 
+                                            name="username" value={this.state.username}/>
+                    </div>
+                    <div className="form-group">
+                        <label >Password:</label>
+                        <input type="password" className="form-control" onChange={this.handleChangeEvent} 
+                                            name="password" value={this.state.password}/>
+                    </div>
+                <button type="submit" className="btn btn-success" onClick={this.handleSubmit}>Submit</button>
+                </form>
             </div>
         );
     }

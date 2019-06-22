@@ -5,9 +5,9 @@ class FooterComponent extends Component {
     render() {
         return(
             <div>
-                <footer class="footer">
-                <div class="container">
-                    <span class="text-muted">Copy right reserved by @DhirenKumarPatra.</span>
+                <footer className="page-footer footer fixed-bottom">
+                <div className="container">
+                    <span className="text-muted">Copy right reserved by @DhirenKumarPatra.</span>
                 </div>
                 </footer>   
             </div>
