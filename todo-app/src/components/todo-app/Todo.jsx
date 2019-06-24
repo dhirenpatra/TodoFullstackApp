@@ -8,6 +8,7 @@ import HeaderComponent from "./HeaderComponent";
 import FooterComponent from "./FooterComponent";
 import Logout from './Logout';
 import AuthenticatedRoute from "./AuthenticatedRoute";
+import AddTodoComponent from "./AddTodoComponent";
 
 class Todo extends Component {
     render() {
@@ -19,8 +20,9 @@ class Todo extends Component {
                                 <Route path="/" exact component={Login}/>
                                 <Route path="/login" component={Login}/>
                                 <AuthenticatedRoute path="/welcome/:name" exact component={Welcome}/>
-                                <AuthenticatedRoute path="/todos" component={TodoList}/>
+                                <AuthenticatedRoute path="/todos" exact component={TodoList}/>
                                 <AuthenticatedRoute path="/logout" component={Logout}/>
+                                <AuthenticatedRoute path="/todos/:id" component={AddTodoComponent}/>
                                 <Route component={ErrorRoute} />
                             </Switch>
                             <FooterComponent />

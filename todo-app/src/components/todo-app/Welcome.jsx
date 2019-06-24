@@ -3,8 +3,22 @@ import { Link } from 'react-router-dom';
 import google from '../images/google.jpg';
 import iphone from '../images/iphone1.jpg';
 import oneplus from '../images/oneplus.jpg';
+import StudentApi from "../../api/student/StudentApi";
 
 class Welcome extends Component {
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            students : [],
+            student : {},
+            errorMessage : ''
+        }
+        this.handleClick = this.handleClick.bind(this);
+        this.handleSuccess = this.handleSuccess.bind(this);
+        this.handleError = this.handleError.bind(this);
+    }
+
     render() {
         let styles = {
             width: '100%',
@@ -17,6 +31,13 @@ class Welcome extends Component {
                     <h1> WELCOME </h1>
                     <div>
                         {this.props.match.params.name}. You can manage your <Link to="/todos"> todos here </Link>.
+                        <button onClick={this.handleClick}> StudentApi </button>
+                            <ul>
+                            {this.state.students.map((student) => {
+                                return <li key={student.id}> student.age | student.name </li>
+                            })}
+                            {this.state.errorMessage}
+                            </ul>
                     </div>
                 </div>
                 <div className="carousel slide" data-ride="carousel">
@@ -47,6 +68,34 @@ class Welcome extends Component {
                 </div>
             </div>
         );
+    }
+
+    handleClick() {
+        // StudentApi.handleGetOneStudent()
+        //         .then(response => {this.handleSuccess(response)});
+
+        StudentApi.handleGetAllStudents()
+                .then(response => {this.handleSuccess(response)})
+                .catch(error => {this.handleError(error)});
+    }
+
+    handleSuccess(response) {
+        this.setState({
+            students : response.data
+        })
+    }
+
+    handleError(error) {
+        let errorMessage = '';
+        if(error.message) {
+            errorMessage += error.message;
+        }
+        if(error.response && error.response.data.message) {
+            errorMessage += error.response.data.message;
+        }
+        this.setState({
+            errorMessage
+        });
     }
 }
 
